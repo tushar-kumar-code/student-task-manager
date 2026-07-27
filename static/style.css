@@ -1,77 +1,129 @@
-body{
+/* ===========================
+   Global Styles
+=========================== */
 
-    margin:0;
-
-    font-family:Arial, Helvetica, sans-serif;
-
-    background:#4e73df;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    height:100vh;
-
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
 }
 
-.login-box{
+/* ===========================
+   Login Page
+=========================== */
 
-    background:white;
-
-    width:350px;
-
-    padding:30px;
-
-    border-radius:10px;
-
-    text-align:center;
-
-    box-shadow:0px 0px 20px rgba(0,0,0,0.2);
-
+.login-box {
+    max-width: 400px;
+    margin: 80px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-h1{
-
-    color:#4e73df;
-
+.login-box h1 {
+    color: #0d6efd;
+    margin-bottom: 25px;
 }
 
-input{
-
-    width:100%;
-
-    padding:12px;
-
-    margin-top:15px;
-
-    box-sizing:border-box;
-
+.login-box input,
+.login-box select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
-button{
-
-    width:100%;
-
-    padding:12px;
-
-    margin-top:20px;
-
-    background:#4e73df;
-
-    color:white;
-
-    border:none;
-
-    cursor:pointer;
-
-    font-size:16px;
-
+.login-box button {
+    width: 100%;
+    margin-top: 20px;
 }
 
-button:hover{
+/* ===========================
+   Dashboard
+=========================== */
 
-    background:#2e59d9;
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background: #0d6efd;
+    color: white;
+    font-weight: bold;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
+
+.badge {
+    font-size: 14px;
+    padding: 8px 10px;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.btn-sm {
+    min-width: 70px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: bold;
+}
+
+/* ===========================
+   Statistics Cards
+=========================== */
+
+.card h2 {
+    font-size: 36px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .card h2 {
+        font-size: 28px;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+
+    .btn-sm {
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .login-box {
+        width: 92%;
+        margin: 30px auto;
+    }
 
 }

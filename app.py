@@ -3,10 +3,8 @@ import database
 
 app = Flask(__name__)
 
-# Secret Key
 app.secret_key = "student-task-manager-secret"
 
-# Create Database
 database.create_database()
 
 
@@ -28,16 +26,13 @@ def login():
     if username == "admin" and password == "1234":
 
         session["user"] = username
-
         return redirect(url_for("dashboard"))
 
-    else:
-
-        return """
-        <h1>❌ Invalid Username or Password</h1>
-        <br>
-        <a href="/">Try Again</a>
-        """
+    return """
+    <h1>❌ Invalid Username or Password</h1>
+    <br>
+    <a href="/">Try Again</a>
+    """
 
 
 @app.route("/dashboard")
@@ -48,10 +43,15 @@ def dashboard():
 
     tasks = database.get_tasks()
 
+    total, completed, pending = database.get_statistics()
+
     return render_template(
         "dashboard.html",
+        username=session["user"],
         tasks=tasks,
-        username=session["user"]
+        total=total,
+        completed=completed,
+        pending=pending
     )
 
 
@@ -62,9 +62,16 @@ def add_task():
         return redirect(url_for("home"))
 
     task = request.form["task"]
+    priority = request.form["priority"]
+    due_date = request.form["due_date"]
 
-    if task.strip() != "":
-        database.add_task(task)
+    if task.strip():
+
+        database.add_task(
+            task,
+            priority,
+            due_date
+        )
 
     return redirect(url_for("dashboard"))
 
@@ -86,18 +93,11 @@ def edit_task(task_id):
     if "user" not in session:
         return redirect(url_for("home"))
 
-    tasks = database.get_tasks()
-
-    selected_task = None
-
-    for task in tasks:
-        if task[0] == task_id:
-            selected_task = task
-            break
+    task = database.get_task(task_id)
 
     return render_template(
         "edit.html",
-        task=selected_task
+        task=task
     )
 
 
@@ -107,14 +107,20 @@ def update_task(task_id):
     if "user" not in session:
         return redirect(url_for("home"))
 
-    new_task = request.form["task"]
+    task = request.form["task"]
+    priority = request.form["priority"]
+    due_date = request.form["due_date"]
 
-    database.update_task(task_id, new_task)
+    database.update_task(
+        task_id,
+        task,
+        priority,
+        due_date
+    )
 
     return redirect(url_for("dashboard"))
 
 
-# ✅ NEW ROUTE (Task Status Toggle)
 @app.route("/toggle-status/<int:task_id>")
 def toggle_status(task_id):
 

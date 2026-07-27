@@ -23,6 +23,44 @@
                 value="{{ task[1] }}"
                 required>
 
+            <br><br>
+
+            <label>Priority</label>
+
+            <br>
+
+            <select name="priority">
+
+                <option value="High"
+                {% if task[2] == "High" %}selected{% endif %}>
+                    High 🔴
+                </option>
+
+                <option value="Medium"
+                {% if task[2] == "Medium" %}selected{% endif %}>
+                    Medium 🟡
+                </option>
+
+                <option value="Low"
+                {% if task[2] == "Low" %}selected{% endif %}>
+                    Low 🟢
+                </option>
+
+            </select>
+
+            <br><br>
+
+            <label>Due Date</label>
+
+            <br>
+
+            <input
+                type="date"
+                name="due_date"
+                value="{{ task[3] if task[3] else '' }}">
+
+            <br><br>
+
             <button type="submit">
                 Update Task
             </button>
@@ -32,7 +70,7 @@
         <br>
 
         <a href="/dashboard">
-            Back to Dashboard
+            ← Back to Dashboard
         </a>
 
     </div>
