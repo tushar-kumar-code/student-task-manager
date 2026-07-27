@@ -15,7 +15,7 @@
 
         <h1>Student Task Manager</h1>
 
-        <h2>Welcome Admin 👋</h2>
+        <h2>Welcome {{ username }} 👋</h2>
 
         <form action="/add-task" method="POST">
 
@@ -44,9 +44,11 @@
                     <li>
                         {{ task[1] }}
 
-                        <a href="/delete-task/{{ task[0] }}">
+                        <a href="/delete-task/{{ task[0] }}"
+                           style="text-decoration: none; margin-left:10px;">
                             ❌
                         </a>
+
                     </li>
 
                 {% endfor %}
@@ -59,11 +61,13 @@
 
         {% endif %}
 
-        <br>
+        <br><br>
 
-        <button>
-            Logout
-        </button>
+        <a href="/logout">
+            <button type="button">
+                Logout
+            </button>
+        </a>
 
     </div>
 
