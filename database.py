@@ -1,10 +1,13 @@
 import sqlite3
 
 
+def get_connection():
+    return sqlite3.connect("database.db")
+
+
 def create_database():
 
-    conn = sqlite3.connect("database.db")
-
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -14,39 +17,45 @@ def create_database():
 
             task TEXT NOT NULL,
 
-            status TEXT DEFAULT 'Pending'
+            priority TEXT DEFAULT 'Medium',
 
+            due_date TEXT,
+
+            status TEXT DEFAULT 'Pending'
         )
     """)
 
     conn.commit()
-
     conn.close()
 
 
-def add_task(task):
+def add_task(task, priority, due_date):
 
-    conn = sqlite3.connect("database.db")
-
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO tasks(task) VALUES(?)",
-        (task,)
+        """
+        INSERT INTO tasks(task, priority, due_date)
+        VALUES(?,?,?)
+        """,
+        (task, priority, due_date)
     )
 
     conn.commit()
-
     conn.close()
 
 
 def get_tasks():
 
-    conn = sqlite3.connect("database.db")
-
+    conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM tasks")
+    cursor.execute("""
+        SELECT *
+        FROM tasks
+        ORDER BY id DESC
+    """)
 
     tasks = cursor.fetchall()
 
@@ -55,10 +64,49 @@ def get_tasks():
     return tasks
 
 
+def get_task(task_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM tasks WHERE id=?",
+        (task_id,)
+    )
+
+    task = cursor.fetchone()
+
+    conn.close()
+
+    return task
+
+
+def update_task(task_id, task, priority, due_date):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE tasks
+
+        SET
+            task=?,
+            priority=?,
+            due_date=?
+
+        WHERE id=?
+        """,
+        (task, priority, due_date, task_id)
+    )
+
+    conn.commit()
+    conn.close()
+
+
 def delete_task(task_id):
 
-    conn = sqlite3.connect("database.db")
-
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
@@ -67,30 +115,12 @@ def delete_task(task_id):
     )
 
     conn.commit()
-
-    conn.close()
-
-
-def update_task(task_id, new_task):
-
-    conn = sqlite3.connect("database.db")
-
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "UPDATE tasks SET task=? WHERE id=?",
-        (new_task, task_id)
-    )
-
-    conn.commit()
-
     conn.close()
 
 
 def toggle_status(task_id):
 
-    conn = sqlite3.connect("database.db")
-
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
@@ -106,10 +136,33 @@ def toggle_status(task_id):
         new_status = "Pending"
 
     cursor.execute(
-        "UPDATE tasks SET status=? WHERE id=?",
+        """
+        UPDATE tasks
+        SET status=?
+        WHERE id=?
+        """,
         (new_status, task_id)
     )
 
     conn.commit()
+    conn.close()
+
+
+def get_statistics():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT COUNT(*) FROM tasks")
+    total = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM tasks WHERE status='Completed'"
+    )
+    completed = cursor.fetchone()[0]
+
+    pending = total - completed
 
     conn.close()
+
+    return total, completed, pending
