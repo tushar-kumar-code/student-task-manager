@@ -41,20 +41,34 @@
 
                 {% for task in tasks %}
 
-                    <li>
-                        {{ task[1] }}
+                <li>
 
-                        <a href="/edit-task/{{ task[0] }}"
-                           style="text-decoration:none; margin-left:10px;">
-                            ✏️
-                        </a>
+                    {% if task[2] == "Completed" %}
 
-                        <a href="/delete-task/{{ task[0] }}"
-                           style="text-decoration:none; margin-left:10px;">
-                            ❌
-                        </a>
+                        ✅ <s>{{ task[1] }}</s>
 
-                    </li>
+                    {% else %}
+
+                        ⏳ {{ task[1] }}
+
+                    {% endif %}
+
+                    <a href="/toggle-status/{{ task[0] }}"
+                       style="text-decoration:none; margin-left:10px;">
+                        🔄
+                    </a>
+
+                    <a href="/edit-task/{{ task[0] }}"
+                       style="text-decoration:none; margin-left:10px;">
+                        ✏️
+                    </a>
+
+                    <a href="/delete-task/{{ task[0] }}"
+                       style="text-decoration:none; margin-left:10px;">
+                        ❌
+                    </a>
+
+                </li>
 
                 {% endfor %}
 

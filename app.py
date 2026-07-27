@@ -3,7 +3,7 @@ import database
 
 app = Flask(__name__)
 
-# Secret Key (Required for Session)
+# Secret Key
 app.secret_key = "student-task-manager-secret"
 
 # Create Database
@@ -13,7 +13,6 @@ database.create_database()
 @app.route("/")
 def home():
 
-    # Agar user already login hai to seedha dashboard bhej do
     if "user" in session:
         return redirect(url_for("dashboard"))
 
@@ -28,7 +27,6 @@ def login():
 
     if username == "admin" and password == "1234":
 
-        # Session Start
         session["user"] = username
 
         return redirect(url_for("dashboard"))
@@ -45,7 +43,6 @@ def login():
 @app.route("/dashboard")
 def dashboard():
 
-    # Login check
     if "user" not in session:
         return redirect(url_for("home"))
 
@@ -72,7 +69,6 @@ def add_task():
     return redirect(url_for("dashboard"))
 
 
-
 @app.route("/delete-task/<int:task_id>")
 def delete_task(task_id):
 
@@ -86,6 +82,9 @@ def delete_task(task_id):
 
 @app.route("/edit-task/<int:task_id>")
 def edit_task(task_id):
+
+    if "user" not in session:
+        return redirect(url_for("home"))
 
     tasks = database.get_tasks()
 
@@ -105,9 +104,24 @@ def edit_task(task_id):
 @app.route("/update-task/<int:task_id>", methods=["POST"])
 def update_task(task_id):
 
+    if "user" not in session:
+        return redirect(url_for("home"))
+
     new_task = request.form["task"]
 
     database.update_task(task_id, new_task)
+
+    return redirect(url_for("dashboard"))
+
+
+# ✅ NEW ROUTE (Task Status Toggle)
+@app.route("/toggle-status/<int:task_id>")
+def toggle_status(task_id):
+
+    if "user" not in session:
+        return redirect(url_for("home"))
+
+    database.toggle_status(task_id)
 
     return redirect(url_for("dashboard"))
 
