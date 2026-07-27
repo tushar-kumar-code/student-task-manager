@@ -72,6 +72,7 @@ def add_task():
     return redirect(url_for("dashboard"))
 
 
+
 @app.route("/delete-task/<int:task_id>")
 def delete_task(task_id):
 
@@ -79,6 +80,34 @@ def delete_task(task_id):
         return redirect(url_for("home"))
 
     database.delete_task(task_id)
+
+    return redirect(url_for("dashboard"))
+
+
+@app.route("/edit-task/<int:task_id>")
+def edit_task(task_id):
+
+    tasks = database.get_tasks()
+
+    selected_task = None
+
+    for task in tasks:
+        if task[0] == task_id:
+            selected_task = task
+            break
+
+    return render_template(
+        "edit.html",
+        task=selected_task
+    )
+
+
+@app.route("/update-task/<int:task_id>", methods=["POST"])
+def update_task(task_id):
+
+    new_task = request.form["task"]
+
+    database.update_task(task_id, new_task)
 
     return redirect(url_for("dashboard"))
 

@@ -44,8 +44,13 @@
                     <li>
                         {{ task[1] }}
 
+                        <a href="/edit-task/{{ task[0] }}"
+                           style="text-decoration:none; margin-left:10px;">
+                            ✏️
+                        </a>
+
                         <a href="/delete-task/{{ task[0] }}"
-                           style="text-decoration: none; margin-left:10px;">
+                           style="text-decoration:none; margin-left:10px;">
                             ❌
                         </a>
 
