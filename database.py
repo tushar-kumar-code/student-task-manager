@@ -89,12 +89,10 @@ def update_task(task_id, task, priority, due_date):
     cursor.execute(
         """
         UPDATE tasks
-
         SET
             task=?,
             priority=?,
             due_date=?
-
         WHERE id=?
         """,
         (task, priority, due_date, task_id)
@@ -128,7 +126,13 @@ def toggle_status(task_id):
         (task_id,)
     )
 
-    status = cursor.fetchone()[0]
+    result = cursor.fetchone()
+
+    if result is None:
+        conn.close()
+        return
+
+    status = result[0]
 
     if status == "Pending":
         new_status = "Completed"
