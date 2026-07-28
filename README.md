@@ -1,47 +1,56 @@
 # 📋 Student Task Manager
 
-A professional Full Stack Task Management Web Application built using **Flask** and **SQLite**. Users can securely log in, manage daily tasks, set priorities and due dates, track completion status, and view task statistics through a simple and responsive dashboard.
+A professional **Full Stack Task Management Web Application** built with **Flask**, **SQLite**, HTML, CSS, JavaScript and Bootstrap.
+
+This project allows users to securely log in, manage daily tasks, assign priorities, set due dates, update task status and monitor progress through a clean dashboard.
 
 ---
 
 # 🚀 Live Demo
 
-🌐 https://student-task-manager-b6za.onrender.com
+https://student-task-manager-b6za.onrender.com
 
 ---
 
 # 💻 GitHub Repository
 
-🔗 https://github.com/tushar-kumar-code/student-task-manager
+https://github.com/tushar-kumar-code/student-task-manager
 
 ---
 
 # ✨ Features
 
-- 🔐 User Login Authentication
-- 🔑 Session Management
-- ➕ Add New Tasks
-- ✏️ Edit Existing Tasks
-- ❌ Delete Tasks
-- ✅ Mark Tasks as Completed
-- 🔄 Toggle Completed / Pending Status
-- 🔴🟡🟢 Task Priority (High, Medium, Low)
-- 📅 Due Date Support
-- 📊 Dashboard Statistics
-- 📱 Responsive User Interface
-- 💾 SQLite Database Integration
+- ✅ User Login Authentication
+- ✅ Session Management
+- ✅ Add New Tasks
+- ✅ Edit Tasks
+- ✅ Delete Tasks
+- ✅ Complete / Pending Toggle
+- ✅ Task Priority (High / Medium / Low)
+- ✅ Due Date Support
+- ✅ Dashboard Statistics
+- ✅ Responsive UI
+- ✅ SQLite Database
 
 ---
 
-# 🛠 Technologies Used
+# 🛠 Tech Stack
+
+### Backend
 
 - Python
 - Flask
 - SQLite
+
+### Frontend
+
 - HTML5
 - CSS3
 - JavaScript
-- Jinja2
+- Bootstrap 5
+
+### Tools
+
 - Git
 - GitHub
 - Render
@@ -75,13 +84,13 @@ student-task-manager/
 
 # ⚙️ Installation
 
-Clone the repository
+Clone repository
 
 ```bash
 git clone https://github.com/tushar-kumar-code/student-task-manager.git
 ```
 
-Go to the project folder
+Go to project folder
 
 ```bash
 cd student-task-manager
@@ -93,13 +102,13 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run the application
+Run application
 
 ```bash
 python app.py
 ```
 
-Open your browser
+Open browser
 
 ```
 http://127.0.0.1:5000
@@ -107,15 +116,15 @@ http://127.0.0.1:5000
 
 ---
 
-# 🔑 Login Credentials
+# 🔑 Demo Login
 
-### Username
+Username
 
 ```
 admin
 ```
 
-### Password
+Password
 
 ```
 1234
@@ -125,45 +134,46 @@ admin
 
 # 📷 Screenshots
 
-### Login Page
+## Login Page
 
-(Add Login Screenshot Here)
+(Add Screenshot)
 
-### Dashboard
+## Dashboard
 
-(Add Dashboard Screenshot Here)
+(Add Screenshot)
 
-### Task Management
+## Edit Task
 
-(Add Task Management Screenshot Here)
+(Add Screenshot)
 
 ---
 
 # 📈 Future Improvements
 
-- Multiple User Accounts
 - User Registration
 - Password Hashing
-- Email Verification
 - Search Tasks
-- Filter by Priority
+- Filter Tasks
 - Dark Mode
-- PostgreSQL Database
-- Docker Support
+- PostgreSQL
+- Docker
+- AI Task Suggestions
+- REST API
 
 ---
 
-# 👨‍💻 Developed By
+# 👨‍💻 Developer
 
 **Tushar Kumar**
 
 B.Tech CSE Student
 
-GitHub:
+GitHub
+
 https://github.com/tushar-kumar-code
 
 ---
 
-# ⭐ Support
+# ⭐ Star the Repository
 
-If you like this project, don't forget to **Star ⭐ the repository**.
+If you found this project helpful, please consider giving it a ⭐ on GitHub.
