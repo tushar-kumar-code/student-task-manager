@@ -10,6 +10,33 @@ def create_database():
     conn = get_connection()
     cursor = conn.cursor()
 
+    # Check if tasks table exists
+    cursor.execute("""
+        SELECT name
+        FROM sqlite_master
+        WHERE type='table'
+        AND name='tasks'
+    """)
+
+    table_exists = cursor.fetchone()
+
+    if table_exists:
+
+        cursor.execute("PRAGMA table_info(tasks)")
+        columns = [column[1] for column in cursor.fetchall()]
+
+        required_columns = [
+            "id",
+            "task",
+            "priority",
+            "due_date",
+            "status"
+        ]
+
+        if not all(col in columns for col in required_columns):
+
+            cursor.execute("DROP TABLE tasks")
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS tasks(
 
@@ -134,10 +161,7 @@ def toggle_status(task_id):
 
     status = result[0]
 
-    if status == "Pending":
-        new_status = "Completed"
-    else:
-        new_status = "Pending"
+    new_status = "Completed" if status == "Pending" else "Pending"
 
     cursor.execute(
         """
