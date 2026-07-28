@@ -17,18 +17,26 @@
 
         <p>Login to continue</p>
 
-        <form action="/login" method="POST">
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('login') }}" method="POST">
 
             <input
                 type="text"
                 name="username"
                 placeholder="Enter Username"
+                autocomplete="username"
                 required>
 
             <input
                 type="password"
                 name="password"
                 placeholder="Enter Password"
+                autocomplete="current-password"
                 required>
 
             <button type="submit">
