@@ -4,8 +4,9 @@
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: #f4f6f9;
+    color: #212529;
 }
 
 /* ===========================
@@ -18,12 +19,18 @@ body {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .login-box h1 {
     color: #0d6efd;
     margin-bottom: 25px;
+    text-align: center;
+}
+
+.login-box p {
+    text-align: center;
+    color: #6c757d;
 }
 
 .login-box input,
@@ -34,11 +41,31 @@ body {
     border: 1px solid #ced4da;
     border-radius: 6px;
     box-sizing: border-box;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.login-box input:focus,
+.login-box select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 .2rem rgba(13,110,253,.25);
 }
 
 .login-box button {
     width: 100%;
     margin-top: 20px;
+}
+
+/* Error Message */
+
+.error-message {
+    background: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 /* ===========================
@@ -48,12 +75,12 @@ body {
 .card {
     border: none;
     border-radius: 12px;
-    transition: 0.25s ease;
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 25px rgba(0,0,0,.15);
 }
 
 .card-header {
@@ -67,6 +94,10 @@ body {
     vertical-align: middle;
 }
 
+.table tbody tr:hover {
+    background: #f8f9fa;
+}
+
 .badge {
     font-size: 14px;
     padding: 8px 10px;
@@ -74,6 +105,11 @@ body {
 
 .btn {
     border-radius: 8px;
+    transition: transform .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
 }
 
 .btn-sm {
@@ -86,6 +122,10 @@ h3,
 h4,
 h5 {
     font-weight: bold;
+}
+
+del {
+    color: #6c757d;
 }
 
 /* ===========================
@@ -102,28 +142,28 @@ h5 {
    Responsive
 =========================== */
 
-@media (max-width: 768px) {
+@media (max-width:768px){
 
-    .container {
-        padding: 15px;
+    .container{
+        padding:15px;
     }
 
-    .card h2 {
-        font-size: 28px;
+    .card h2{
+        font-size:28px;
     }
 
-    .table {
-        font-size: 14px;
+    .table{
+        font-size:14px;
     }
 
-    .btn-sm {
-        margin-bottom: 5px;
-        width: 100%;
+    .btn-sm{
+        width:100%;
+        margin-bottom:5px;
     }
 
-    .login-box {
-        width: 92%;
-        margin: 30px auto;
+    .login-box{
+        width:92%;
+        margin:30px auto;
     }
 
 }
