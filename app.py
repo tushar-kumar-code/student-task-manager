@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import os
 import database
 
 app = Flask(__name__)
 
-app.secret_key = "student-task-manager-secret"
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "student-task-manager-secret"
+)
 
 database.create_database()
 
@@ -24,15 +28,13 @@ def login():
     password = request.form["password"]
 
     if username == "admin" and password == "1234":
-
         session["user"] = username
         return redirect(url_for("dashboard"))
 
-    return """
-    <h1>❌ Invalid Username or Password</h1>
-    <br>
-    <a href="/">Try Again</a>
-    """
+    return render_template(
+        "index.html",
+        error="Invalid Username or Password"
+    )
 
 
 @app.route("/dashboard")
@@ -42,7 +44,6 @@ def dashboard():
         return redirect(url_for("home"))
 
     tasks = database.get_tasks()
-
     total, completed, pending = database.get_statistics()
 
     return render_template(
@@ -66,12 +67,7 @@ def add_task():
     due_date = request.form["due_date"]
 
     if task.strip():
-
-        database.add_task(
-            task,
-            priority,
-            due_date
-        )
+        database.add_task(task, priority, due_date)
 
     return redirect(url_for("dashboard"))
 
@@ -111,12 +107,13 @@ def update_task(task_id):
     priority = request.form["priority"]
     due_date = request.form["due_date"]
 
-    database.update_task(
-        task_id,
-        task,
-        priority,
-        due_date
-    )
+    if task.strip():
+        database.update_task(
+            task_id,
+            task,
+            priority,
+            due_date
+        )
 
     return redirect(url_for("dashboard"))
 
